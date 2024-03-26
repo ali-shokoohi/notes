@@ -1,0 +1,20 @@
+FROM golang:1.22-alpine
+
+# Install (required for fetching Go modules) and the build dependencies for CGo.
+RUN apk add --no-cache gcc musl-dev sqlite-dev
+
+# Set the Current Working Directory inside the container
+WORKDIR /app
+
+# Copy the source from the current directory to the Working Directory inside the container
+COPY . .
+
+RUN go mod tidy
+
+# Since we're using Alpine, which uses musl libc, CGo should be enabled by default.
+# However, it's good practice to explicitly enable it when you know you'll need it.
+ENV CGO_ENABLED=1
+
+# Instead of using 'go run', consider compiling your application and then running the binary.
+# This approach is generally more efficient and is a best practice for production Docker images.
+CMD ["go", "run", "main.go"]
