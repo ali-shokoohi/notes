@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile.dev
+    ports:
+      - "8585:8585" # Assume your Go app runs on port 8585, adjust if necessary
+    volumes:
+      - .:/app # Optional: Mount the source code into the container for development
