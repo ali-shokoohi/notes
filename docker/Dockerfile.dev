@@ -17,4 +17,4 @@ ENV CGO_ENABLED=1
 
 # Instead of using 'go run', consider compiling your application and then running the binary.
 # This approach is generally more efficient and is a best practice for production Docker images.
-CMD ["go", "run", "main.go"]
+CMD ["/bin/sh", "-c", "go run main.go migrate --config=/app/configs/dev.config.yaml && go run main.go run --config=/app/configs/dev.config.yaml"]

@@ -6,4 +6,21 @@ services:
       context: .
       dockerfile: ./docker/Dockerfile
     ports:
-      - "8585:8585" # Assume your Go app runs on port 8585, adjust if necessary
+      - ${Port}:${Port} # Assume your Go app runs on port from environment, adjust if necessary
+    volumes:
+      - gopath:/go
+    depends_on:
+      - database
+
+  database:
+    image: postgres:14.1-alpine
+    environment:
+      POSTGRES_USER: ${DBUsername}
+      POSTGRES_PASSWORD: ${DBPassword}
+      POSTGRES_DATABASE: ${DBName}
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+
+volumes:
+  psql_data:
+  gopath:
