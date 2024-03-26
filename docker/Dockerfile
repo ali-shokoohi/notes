@@ -25,8 +25,11 @@ FROM alpine:latest
 # Set the Current Working Directory inside the container
 WORKDIR /app
 
-# Copy the pre-built binary file from the previous stage
+# Copy the pre-built binary file from the previons stage
 COPY --from=builder /app/notes /app/notes
 
+# Copy configs from local
+COPY configs/ /app/configs/
+
 # Command to run the executable
-CMD ["./notes"]
+CMD ["/bin/sh", "-c", "./notes migrate --config=/app/configs/config.yaml && ./notes run --config=/app/configs/config.yaml"]

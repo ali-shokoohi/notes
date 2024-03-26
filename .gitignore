@@ -1,0 +1,11 @@
+# Database files
+*.db
+
+# Built file
+notes
+
+# IDE
+.vscode/
+
+# Environment
+.env

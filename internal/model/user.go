@@ -1,9 +1,11 @@
 package model
 
-import "gorm.io/gorm"
-
 type Note struct {
-	gorm.Model
+	BaseModel
 	Title string
 	Text  string
+}
+
+func (u Note) Table() string {
+	return "notes"
 }
